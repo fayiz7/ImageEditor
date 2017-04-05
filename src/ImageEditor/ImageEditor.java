@@ -420,6 +420,7 @@ public class ImageEditor extends javax.swing.JFrame {
             public void run() {
                 new ImageEditor().setVisible(true);
                 System.out.println("see these changes");
+                System.out.println("  ");
                 
             }
         });
