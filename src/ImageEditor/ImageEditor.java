@@ -419,9 +419,7 @@ public class ImageEditor extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ImageEditor().setVisible(true);
-                System.out.println("done");
-                System.out.println("check second changes");
-                System.out.println("check third");
+                System.out.println("see these changes");
                 
             }
         });
