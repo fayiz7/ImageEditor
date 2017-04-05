@@ -421,6 +421,8 @@ public class ImageEditor extends javax.swing.JFrame {
                 new ImageEditor().setVisible(true);
                 System.out.println("done");
                 System.out.println("check second changes");
+                System.out.println("check third");
+                
             }
         });
     }
