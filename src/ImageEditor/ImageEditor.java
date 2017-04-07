@@ -29,7 +29,7 @@ public class ImageEditor extends javax.swing.JFrame {
     public ImageEditor() {
         initComponents();
         openFileChooser = new JFileChooser();
-        openFileChooser.setCurrentDirectory(new File("C:\\Users\\Fayiz7\\Pictures"));
+        openFileChooser.setCurrentDirectory(new File("C:\\"));
         openFileChooser.setFileFilter(new FileNameExtensionFilter("PNG image", "png"));
         openFileChooser.setFileFilter(new FileNameExtensionFilter("JPEG image", "jpg"));
         
@@ -112,9 +112,7 @@ public class ImageEditor extends javax.swing.JFrame {
         );
         pnlOriginalImageLayout.setVerticalGroup(
             pnlOriginalImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlOriginalImageLayout.createSequentialGroup()
-                .addComponent(lblOriImage, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(lblOriImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1230, Short.MAX_VALUE)
         );
 
         btnOpenPicture.setText("Open Picture...");
@@ -343,41 +341,24 @@ public class ImageEditor extends javax.swing.JFrame {
 
     private void menuOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenFileActionPerformed
       
-
-// TODO add your handling code here:
-        //FileChooser choose=new FileChooser();
-        //OpenPicture.main(null);
-//        OpenPicture.getFrames();
-//        OpenPicture.getWindows();
-        int returnValue=openFileChooser.showOpenDialog(this);
-        if(returnValue==JFileChooser.APPROVE_OPTION){
-            try{
-                OriginalBI=ImageIO.read(openFileChooser.getSelectedFile());
-                lblPicturePath.setText(openFileChooser.getSelectedFile().getPath());
-            }catch(IOException ioe){
-                lblPicturePath.setText("something went wrong!!~");
-            }
-        }else{
-            lblPicturePath.setText("no file chosen!!");
-        }
+        btnOpenPictureActionPerformed(evt);
         
     }//GEN-LAST:event_menuOpenFileActionPerformed
 
     private void btnOpenPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenPictureActionPerformed
         // TODO add your handling code here:
         int returnValue=openFileChooser.showOpenDialog(this);
+        Image dimg;
         if(returnValue==JFileChooser.APPROVE_OPTION){
             try{
                 OriginalBI=ImageIO.read(openFileChooser.getSelectedFile());
-                Image dimg = OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(),OriginalBI.SCALE_SMOOTH);
+                if(OriginalBI.getWidth()>lblOriImage.getWidth()||OriginalBI.getHeight()>lblOriImage.getHeight())
+                     dimg = OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(),OriginalBI.SCALE_SMOOTH);
+                else  dimg = OriginalBI;
                // OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(), OriginalBI.SCALE_SMOOTH);
                 Icon b = new ImageIcon(dimg);
-                
-                
-                
-                
                 lblOriImage.setIcon(b);
-                lblPicturePath.setText(openFileChooser.getSelectedFile().getPath());
+                lblPicturePath.setText("Image Path: "+openFileChooser.getSelectedFile().getPath());
                 
                 
             }catch(IOException ioe){
