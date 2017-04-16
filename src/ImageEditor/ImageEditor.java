@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ImageEditor extends javax.swing.JFrame {
     private final JFileChooser openFileChooser;
     private BufferedImage OriginalBI;
+    private Picture OrigPic;
     
     /**
      * Creates new form ImageEditor
@@ -100,7 +101,7 @@ public class ImageEditor extends javax.swing.JFrame {
             }
         });
 
-        pnlOriginalImage.setBorder(javax.swing.BorderFactory.createTitledBorder("Original Image"));
+        pnlOriginalImage.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         javax.swing.GroupLayout pnlOriginalImageLayout = new javax.swing.GroupLayout(pnlOriginalImage);
         pnlOriginalImage.setLayout(pnlOriginalImageLayout);
@@ -112,7 +113,7 @@ public class ImageEditor extends javax.swing.JFrame {
         );
         pnlOriginalImageLayout.setVerticalGroup(
             pnlOriginalImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblOriImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1230, Short.MAX_VALUE)
+            .addComponent(lblOriImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1205, Short.MAX_VALUE)
         );
 
         btnOpenPicture.setText("Open Picture...");
@@ -298,14 +299,14 @@ public class ImageEditor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1500, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1480, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1500, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1457, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -341,7 +342,35 @@ public class ImageEditor extends javax.swing.JFrame {
 
     private void menuOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenFileActionPerformed
       
-        btnOpenPictureActionPerformed(evt);
+        //btnOpenPictureActionPerformed(evt);
+        //p = new Picture(new FileChooser().pickAFile());
+        //p.show();
+        
+        String filename  =  FileChooser.pickAFile();
+        Picture OrigPic = new Picture(filename);
+        Picture f = OrigPic;
+        f.show();
+//        f.show();
+//        System.out.println(f.getHeight());
+//        System.out.println(lblOriImage.getHeight());
+        double ratio=(double)lblOriImage.getHeight()/(double)f.getHeight();
+//        System.out.println(ratio);
+        if (f.getHeight()>lblOriImage.getHeight()){
+            f=f.scale(ratio,ratio);
+            f.show();
+            if(f.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)f.getWidth();
+                f=f.scale(ratio, ratio);
+                f.show();
+            }
+            //f.show();
+        }
+        Icon a = new ImageIcon(f.getImage());
+        
+        lblOriImage.setIcon(a);
+        lblPicturePath.setText(f.getFileName());
+        
+        
         
     }//GEN-LAST:event_menuOpenFileActionPerformed
 
@@ -352,6 +381,8 @@ public class ImageEditor extends javax.swing.JFrame {
         if(returnValue==JFileChooser.APPROVE_OPTION){
             try{
                 OriginalBI=ImageIO.read(openFileChooser.getSelectedFile());
+        //        p.getBufferedImage();
+                
                 if(OriginalBI.getWidth()>lblOriImage.getWidth()||OriginalBI.getHeight()>lblOriImage.getHeight())
                      dimg = OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(),OriginalBI.SCALE_SMOOTH);
                 else  dimg = OriginalBI;
