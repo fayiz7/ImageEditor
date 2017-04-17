@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ImageEditor extends javax.swing.JFrame {
     private final JFileChooser openFileChooser;
     private BufferedImage OriginalBI;
+    private Picture OrigPic;
     
     /**
      * Creates new form ImageEditor
@@ -29,7 +30,7 @@ public class ImageEditor extends javax.swing.JFrame {
     public ImageEditor() {
         initComponents();
         openFileChooser = new JFileChooser();
-        openFileChooser.setCurrentDirectory(new File("C:\\Users\\Fayiz7\\Pictures"));
+        openFileChooser.setCurrentDirectory(new File("C:\\"));
         openFileChooser.setFileFilter(new FileNameExtensionFilter("PNG image", "png"));
         openFileChooser.setFileFilter(new FileNameExtensionFilter("JPEG image", "jpg"));
         
@@ -100,7 +101,7 @@ public class ImageEditor extends javax.swing.JFrame {
             }
         });
 
-        pnlOriginalImage.setBorder(javax.swing.BorderFactory.createTitledBorder("Original Image"));
+        pnlOriginalImage.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         javax.swing.GroupLayout pnlOriginalImageLayout = new javax.swing.GroupLayout(pnlOriginalImage);
         pnlOriginalImage.setLayout(pnlOriginalImageLayout);
@@ -112,9 +113,7 @@ public class ImageEditor extends javax.swing.JFrame {
         );
         pnlOriginalImageLayout.setVerticalGroup(
             pnlOriginalImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlOriginalImageLayout.createSequentialGroup()
-                .addComponent(lblOriImage, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(lblOriImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1205, Short.MAX_VALUE)
         );
 
         btnOpenPicture.setText("Open Picture...");
@@ -300,14 +299,14 @@ public class ImageEditor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1500, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1480, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1500, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1457, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -343,41 +342,54 @@ public class ImageEditor extends javax.swing.JFrame {
 
     private void menuOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenFileActionPerformed
       
-
-// TODO add your handling code here:
-        //FileChooser choose=new FileChooser();
-        //OpenPicture.main(null);
-//        OpenPicture.getFrames();
-//        OpenPicture.getWindows();
-        int returnValue=openFileChooser.showOpenDialog(this);
-        if(returnValue==JFileChooser.APPROVE_OPTION){
-            try{
-                OriginalBI=ImageIO.read(openFileChooser.getSelectedFile());
-                lblPicturePath.setText(openFileChooser.getSelectedFile().getPath());
-            }catch(IOException ioe){
-                lblPicturePath.setText("something went wrong!!~");
+        //btnOpenPictureActionPerformed(evt);
+        //p = new Picture(new FileChooser().pickAFile());
+        //p.show();
+        
+        String filename  =  FileChooser.pickAFile();
+        Picture OrigPic = new Picture(filename);
+        Picture f = OrigPic;
+        f.show();
+//        f.show();
+//        System.out.println(f.getHeight());
+//        System.out.println(lblOriImage.getHeight());
+        double ratio=(double)lblOriImage.getHeight()/(double)f.getHeight();
+//        System.out.println(ratio);
+        if (f.getHeight()>lblOriImage.getHeight()){
+            f=f.scale(ratio,ratio);
+            f.show();
+            if(f.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)f.getWidth();
+                f=f.scale(ratio, ratio);
+                f.show();
             }
-        }else{
-            lblPicturePath.setText("no file chosen!!");
+            //f.show();
         }
+        Icon a = new ImageIcon(f.getImage());
+        
+        lblOriImage.setIcon(a);
+        lblPicturePath.setText(f.getFileName());
+        
+        
         
     }//GEN-LAST:event_menuOpenFileActionPerformed
 
     private void btnOpenPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenPictureActionPerformed
         // TODO add your handling code here:
         int returnValue=openFileChooser.showOpenDialog(this);
+        Image dimg;
         if(returnValue==JFileChooser.APPROVE_OPTION){
             try{
                 OriginalBI=ImageIO.read(openFileChooser.getSelectedFile());
-                Image dimg = OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(),OriginalBI.SCALE_SMOOTH);
+        //        p.getBufferedImage();
+                
+                if(OriginalBI.getWidth()>lblOriImage.getWidth()||OriginalBI.getHeight()>lblOriImage.getHeight())
+                     dimg = OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(),OriginalBI.SCALE_SMOOTH);
+                else  dimg = OriginalBI;
                // OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(), OriginalBI.SCALE_SMOOTH);
                 Icon b = new ImageIcon(dimg);
-                
-                
-                
-                
                 lblOriImage.setIcon(b);
-                lblPicturePath.setText(openFileChooser.getSelectedFile().getPath());
+                lblPicturePath.setText("Image Path: "+openFileChooser.getSelectedFile().getPath());
                 
                 
             }catch(IOException ioe){
