@@ -349,7 +349,6 @@ public class ImageEditor extends javax.swing.JFrame {
         String filename  =  FileChooser.pickAFile();
         Picture OrigPic = new Picture(filename);
         Picture f = OrigPic;
-        f.show();
 //        f.show();
 //        System.out.println(f.getHeight());
 //        System.out.println(lblOriImage.getHeight());
@@ -357,11 +356,9 @@ public class ImageEditor extends javax.swing.JFrame {
 //        System.out.println(ratio);
         if (f.getHeight()>lblOriImage.getHeight()){
             f=f.scale(ratio,ratio);
-            f.show();
             if(f.getWidth()>lblOriImage.getWidth()){
                 ratio=(double)lblOriImage.getWidth()/(double)f.getWidth();
                 f=f.scale(ratio, ratio);
-                f.show();
             }
             //f.show();
         }
