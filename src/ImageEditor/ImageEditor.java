@@ -135,9 +135,19 @@ public class ImageEditor extends javax.swing.JFrame {
         jPanel3.add(btnRotLeft);
 
         btnRot180.setText("Rotate 180");
+        btnRot180.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRot180ActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnRot180);
 
         btnRotRight.setText("Rotate to Right");
+        btnRotRight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRotRightActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnRotRight);
 
         javax.swing.GroupLayout rotFrameLayout = new javax.swing.GroupLayout(rotFrame.getContentPane());
@@ -185,7 +195,7 @@ public class ImageEditor extends javax.swing.JFrame {
         );
         pnlOriginalImageLayout.setVerticalGroup(
             pnlOriginalImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblOriImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1205, Short.MAX_VALUE)
+            .addComponent(lblOriImage, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
         );
 
         btnOpenPicture.setText("Open Picture...");
@@ -487,8 +497,6 @@ public class ImageEditor extends javax.swing.JFrame {
 
     private void btnRotLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRotLeftActionPerformed
         Picture rot = new Picture(OrigPic.rotateLeft());
-        rot.rotateLeft();
-     
         double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
         if (rot.getHeight()>lblOriImage.getHeight()){
             rot=rot.scale(ratio,ratio);
@@ -501,6 +509,37 @@ public class ImageEditor extends javax.swing.JFrame {
         lblOriImage.setIcon(a);
         lblPicturePath.setText(rot.getFileName());        
     }//GEN-LAST:event_btnRotLeftActionPerformed
+
+    private void btnRotRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRotRightActionPerformed
+        Picture rot = new Picture(OrigPic.rotateRight());
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+        lblPicturePath.setText(rot.getFileName());        
+    }//GEN-LAST:event_btnRotRightActionPerformed
+
+    private void btnRot180ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRot180ActionPerformed
+        Picture rot = new Picture(OrigPic);
+        rot.rotate180();
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+        lblPicturePath.setText(rot.getFileName());        
+    }//GEN-LAST:event_btnRot180ActionPerformed
 
     /**
      * @param args the command line arguments
