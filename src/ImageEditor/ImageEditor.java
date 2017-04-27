@@ -60,6 +60,10 @@ public class ImageEditor extends javax.swing.JFrame {
         btnHorRef = new javax.swing.JButton();
         btnD1Ref = new javax.swing.JButton();
         btnD2Ref = new javax.swing.JButton();
+        scalFrame = new javax.swing.JFrame();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -83,6 +87,8 @@ public class ImageEditor extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        sMnuShoOriPic = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         sMnuRotate = new javax.swing.JMenuItem();
         sMnuReflect = new javax.swing.JMenuItem();
         sMnuScal = new javax.swing.JMenuItem();
@@ -126,7 +132,6 @@ public class ImageEditor extends javax.swing.JFrame {
         );
 
         rotFrame.setBackground(new java.awt.Color(0, 150, 0));
-        rotFrame.setMaximumSize(new java.awt.Dimension(1500, 1500));
         rotFrame.setMinimumSize(new java.awt.Dimension(450, 300));
 
         jPanel3.setMaximumSize(new java.awt.Dimension(1500, 1500));
@@ -178,7 +183,7 @@ public class ImageEditor extends javax.swing.JFrame {
         );
 
         refFrame.setMinimumSize(new java.awt.Dimension(650, 300));
-        refFrame.getContentPane().setLayout(new java.awt.GridLayout());
+        refFrame.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         btnVerRef.setText("Vertical Reflection");
         btnVerRef.addActionListener(new java.awt.event.ActionListener() {
@@ -211,6 +216,33 @@ public class ImageEditor extends javax.swing.JFrame {
             }
         });
         refFrame.getContentPane().add(btnD2Ref);
+
+        scalFrame.setMinimumSize(new java.awt.Dimension(300, 150));
+
+        jRadioButton1.setText("jRadioButton1");
+
+        jRadioButton2.setText("jRadioButton2");
+
+        javax.swing.GroupLayout scalFrameLayout = new javax.swing.GroupLayout(scalFrame.getContentPane());
+        scalFrame.getContentPane().setLayout(scalFrameLayout);
+        scalFrameLayout.setHorizontalGroup(
+            scalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(scalFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(scalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(301, 301, 301))
+        );
+        scalFrameLayout.setVerticalGroup(
+            scalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(scalFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(247, 247, 247))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -403,6 +435,15 @@ public class ImageEditor extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
 
+        sMnuShoOriPic.setText("Show Original Picture");
+        sMnuShoOriPic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sMnuShoOriPicActionPerformed(evt);
+            }
+        });
+        jMenu2.add(sMnuShoOriPic);
+        jMenu2.add(jSeparator2);
+
         sMnuRotate.setText("Rotation ...");
         sMnuRotate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,6 +461,11 @@ public class ImageEditor extends javax.swing.JFrame {
         jMenu2.add(sMnuReflect);
 
         sMnuScal.setText("Scaling ...");
+        sMnuScal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sMnuScalActionPerformed(evt);
+            }
+        });
         jMenu2.add(sMnuScal);
 
         jMenuBar1.add(jMenu2);
@@ -655,11 +701,20 @@ public class ImageEditor extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnD2RefActionPerformed
 
+    private void sMnuShoOriPicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sMnuShoOriPicActionPerformed
+        OrigPic.show();
+    }//GEN-LAST:event_sMnuShoOriPicActionPerformed
+
+    private void sMnuScalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sMnuScalActionPerformed
+        // TODO add your handling code here:
+                 scalFrame.setVisible(rootPaneCheckingEnabled);
+
+    }//GEN-LAST:event_sMnuScalActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -707,6 +762,7 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JButton btnRotLeft;
     private javax.swing.JButton btnRotRight;
     private javax.swing.JButton btnVerRef;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JFrame frmOriginalPic;
     private javax.swing.JButton jButton1;
@@ -722,7 +778,10 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblOriImage;
     private javax.swing.JLabel lblPicturePath;
     private javax.swing.JMenuItem menuExit;
@@ -733,6 +792,8 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JMenuItem sMnuReflect;
     private javax.swing.JMenuItem sMnuRotate;
     private javax.swing.JMenuItem sMnuScal;
+    private javax.swing.JMenuItem sMnuShoOriPic;
+    private javax.swing.JFrame scalFrame;
     private javax.swing.JTextField txtBlueColor;
     private javax.swing.JTextField txtGreenColor;
     private javax.swing.JTextField txtRedColor;
