@@ -20,10 +20,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author MofawsAdmin
  */
 public class ImageEditor extends javax.swing.JFrame {
+
     private final JFileChooser openFileChooser;
     private BufferedImage OriginalBI;
-    private Picture OrigPic;
-    
+    Picture OrigPic = new Picture("D:\\Users\\MofawsAdmin\\Pictures\\111.jpg");
+
     /**
      * Creates new form ImageEditor
      */
@@ -33,7 +34,7 @@ public class ImageEditor extends javax.swing.JFrame {
         openFileChooser.setCurrentDirectory(new File("C:\\"));
         openFileChooser.setFileFilter(new FileNameExtensionFilter("PNG image", "png"));
         openFileChooser.setFileFilter(new FileNameExtensionFilter("JPEG image", "jpg"));
-        
+
     }
 
     /**
@@ -54,6 +55,11 @@ public class ImageEditor extends javax.swing.JFrame {
         btnRotLeft = new javax.swing.JButton();
         btnRot180 = new javax.swing.JButton();
         btnRotRight = new javax.swing.JButton();
+        refFrame = new javax.swing.JFrame();
+        btnVerRef = new javax.swing.JButton();
+        btnHorRef = new javax.swing.JButton();
+        btnD1Ref = new javax.swing.JButton();
+        btnD2Ref = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -77,9 +83,9 @@ public class ImageEditor extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        sMnuRotate = new javax.swing.JMenuItem();
+        sMnuReflect = new javax.swing.JMenuItem();
+        sMnuScal = new javax.swing.JMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\Users\\MofawsAdmin\\VirtualBox VMs"));
         fileChooser.setDialogTitle("Open Dialog");
@@ -124,7 +130,7 @@ public class ImageEditor extends javax.swing.JFrame {
         rotFrame.setMinimumSize(new java.awt.Dimension(450, 300));
 
         jPanel3.setMaximumSize(new java.awt.Dimension(1500, 1500));
-        jPanel3.setLayout(new java.awt.GridLayout());
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         btnRotLeft.setText("Rotate to Left");
         btnRotLeft.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +176,41 @@ public class ImageEditor extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
+
+        refFrame.setMinimumSize(new java.awt.Dimension(650, 300));
+        refFrame.getContentPane().setLayout(new java.awt.GridLayout());
+
+        btnVerRef.setText("Vertical Reflection");
+        btnVerRef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerRefActionPerformed(evt);
+            }
+        });
+        refFrame.getContentPane().add(btnVerRef);
+
+        btnHorRef.setText("Horizontal Reflection");
+        btnHorRef.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHorRefActionPerformed(evt);
+            }
+        });
+        refFrame.getContentPane().add(btnHorRef);
+
+        btnD1Ref.setText("Diagonal Refleciton D1");
+        btnD1Ref.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnD1RefActionPerformed(evt);
+            }
+        });
+        refFrame.getContentPane().add(btnD1Ref);
+
+        btnD2Ref.setText("Diagonal Reflection D2");
+        btnD2Ref.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnD2RefActionPerformed(evt);
+            }
+        });
+        refFrame.getContentPane().add(btnD2Ref);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -362,19 +403,24 @@ public class ImageEditor extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
 
-        jMenuItem4.setText("Rotate ...");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        sMnuRotate.setText("Rotation ...");
+        sMnuRotate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                sMnuRotateActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(sMnuRotate);
 
-        jMenuItem5.setText("Corp");
-        jMenu2.add(jMenuItem5);
+        sMnuReflect.setText("Reflection ...");
+        sMnuReflect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sMnuReflectActionPerformed(evt);
+            }
+        });
+        jMenu2.add(sMnuReflect);
 
-        jMenuItem6.setText("Filp ...");
-        jMenu2.add(jMenuItem6);
+        sMnuScal.setText("Scaling ...");
+        jMenu2.add(sMnuScal);
 
         jMenuBar1.add(jMenu2);
 
@@ -402,8 +448,8 @@ public class ImageEditor extends javax.swing.JFrame {
 
     private void btnApplyColorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyColorsActionPerformed
         // TODO add your handling code here:
-        int red,blue,green;
-        
+        int red, blue, green;
+
     }//GEN-LAST:event_btnApplyColorsActionPerformed
 
     private void txtRedColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRedColorActionPerformed
@@ -428,68 +474,67 @@ public class ImageEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_menuExitActionPerformed
 
     private void menuOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenFileActionPerformed
-      
+
         //btnOpenPictureActionPerformed(evt);
         //p = new Picture(new FileChooser().pickAFile());
         //p.show();
-        
-        String filename  =  FileChooser.pickAFile();
+        String filename = FileChooser.pickAFile();
         OrigPic = new Picture(filename);
         Picture f = OrigPic;
 //        f.show();
 //        System.out.println(f.getHeight());
 //        System.out.println(lblOriImage.getHeight());
-        double ratio=(double)lblOriImage.getHeight()/(double)f.getHeight();
+        double ratio = (double) lblOriImage.getHeight() / (double) f.getHeight();
 //        System.out.println(ratio);
-        if (f.getHeight()>lblOriImage.getHeight()){
-            f=f.scale(ratio,ratio);
-            if(f.getWidth()>lblOriImage.getWidth()){
-                ratio=(double)lblOriImage.getWidth()/(double)f.getWidth();
-                f=f.scale(ratio, ratio);
+        if (f.getHeight() > lblOriImage.getHeight()) {
+            f = f.scale(ratio, ratio);
+            if (f.getWidth() > lblOriImage.getWidth()) {
+                ratio = (double) lblOriImage.getWidth() / (double) f.getWidth();
+                f = f.scale(ratio, ratio);
             }
             //f.show();
         }
         Icon a = new ImageIcon(f.getImage());
-        
+
         lblOriImage.setIcon(a);
         lblPicturePath.setText(f.getFileName());
-        
-        
-        
+
+
     }//GEN-LAST:event_menuOpenFileActionPerformed
 
     private void btnOpenPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenPictureActionPerformed
         // TODO add your handling code here:
-        
-        int returnValue=openFileChooser.showOpenDialog(this);
+
+        int returnValue = openFileChooser.showOpenDialog(this);
         Image dimg;
-        if(returnValue==JFileChooser.APPROVE_OPTION){
-            try{
-                OriginalBI=ImageIO.read(openFileChooser.getSelectedFile());
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            try {
+                OriginalBI = ImageIO.read(openFileChooser.getSelectedFile());
         //        p.getBufferedImage();
-                
-                if(OriginalBI.getWidth()>lblOriImage.getWidth()||OriginalBI.getHeight()>lblOriImage.getHeight())
-                     dimg = OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(),OriginalBI.SCALE_SMOOTH);
-                else  dimg = OriginalBI;
-               // OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(), OriginalBI.SCALE_SMOOTH);
+
+                if (OriginalBI.getWidth() > lblOriImage.getWidth() || OriginalBI.getHeight() > lblOriImage.getHeight()) {
+                    dimg = OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(), OriginalBI.SCALE_SMOOTH);
+                } else {
+                    dimg = OriginalBI;
+                }
+                // OriginalBI.getScaledInstance(lblOriImage.getWidth(), lblOriImage.getHeight(), OriginalBI.SCALE_SMOOTH);
                 Icon b = new ImageIcon(dimg);
                 lblOriImage.setIcon(b);
-                lblPicturePath.setText("Image Path: "+openFileChooser.getSelectedFile().getPath());
-                
-                
-            }catch(IOException ioe){
+                lblPicturePath.setText("Image Path: " + openFileChooser.getSelectedFile().getPath());
+
+            } catch (IOException ioe) {
                 lblPicturePath.setText("something went wrong!!~");
             }
-        }else{
+        } else {
             lblPicturePath.setText("no file chosen!!");
         }
     }//GEN-LAST:event_btnOpenPictureActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void sMnuRotateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sMnuRotateActionPerformed
         // TODO add your handling code here:
         rotFrame.show();
 //        rotFrame.setVisible(rootPaneCheckingEnabled);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_sMnuRotateActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -497,37 +542,90 @@ public class ImageEditor extends javax.swing.JFrame {
 
     private void btnRotLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRotLeftActionPerformed
         Picture rot = new Picture(OrigPic.rotateLeft());
-        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
-        if (rot.getHeight()>lblOriImage.getHeight()){
-            rot=rot.scale(ratio,ratio);
-            if(rot.getWidth()>lblOriImage.getWidth()){
-                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
-                rot=rot.scale(ratio, ratio);
+        double ratio = (double) lblOriImage.getHeight() / (double) rot.getHeight();
+        if (rot.getHeight() > lblOriImage.getHeight()) {
+            rot = rot.scale(ratio, ratio);
+            if (rot.getWidth() > lblOriImage.getWidth()) {
+                ratio = (double) lblOriImage.getWidth() / (double) rot.getWidth();
+                rot = rot.scale(ratio, ratio);
             }
         }
         Icon a = new ImageIcon(rot.getImage());
         lblOriImage.setIcon(a);
-        lblPicturePath.setText(rot.getFileName());        
+        lblPicturePath.setText(rot.getFileName());
     }//GEN-LAST:event_btnRotLeftActionPerformed
 
     private void btnRotRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRotRightActionPerformed
         Picture rot = new Picture(OrigPic.rotateRight());
-        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
-        if (rot.getHeight()>lblOriImage.getHeight()){
-            rot=rot.scale(ratio,ratio);
-            if(rot.getWidth()>lblOriImage.getWidth()){
-                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
-                rot=rot.scale(ratio, ratio);
+        double ratio = (double) lblOriImage.getHeight() / (double) rot.getHeight();
+        if (rot.getHeight() > lblOriImage.getHeight()) {
+            rot = rot.scale(ratio, ratio);
+            if (rot.getWidth() > lblOriImage.getWidth()) {
+                ratio = (double) lblOriImage.getWidth() / (double) rot.getWidth();
+                rot = rot.scale(ratio, ratio);
             }
         }
         Icon a = new ImageIcon(rot.getImage());
         lblOriImage.setIcon(a);
-        lblPicturePath.setText(rot.getFileName());        
+        lblPicturePath.setText(rot.getFileName());
     }//GEN-LAST:event_btnRotRightActionPerformed
 
     private void btnRot180ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRot180ActionPerformed
         Picture rot = new Picture(OrigPic);
         rot.rotate180();
+        double ratio = (double) lblOriImage.getHeight() / (double) rot.getHeight();
+        if (rot.getHeight() > lblOriImage.getHeight()) {
+            rot = rot.scale(ratio, ratio);
+            if (rot.getWidth() > lblOriImage.getWidth()) {
+                ratio = (double) lblOriImage.getWidth() / (double) rot.getWidth();
+                rot = rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+        lblPicturePath.setText(rot.getFileName());
+    }//GEN-LAST:event_btnRot180ActionPerformed
+
+    private void sMnuReflectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sMnuReflectActionPerformed
+        // TODO add your handling code here:
+        refFrame.show();
+
+    }//GEN-LAST:event_sMnuReflectActionPerformed
+
+    private void btnVerRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRefActionPerformed
+        Picture rot = new Picture(OrigPic);
+        rot.mirrorVertical();
+        double ratio = (double) lblOriImage.getHeight() / (double) rot.getHeight();
+        if (rot.getHeight() > lblOriImage.getHeight()) {
+            rot = rot.scale(ratio, ratio);
+            if (rot.getWidth() > lblOriImage.getWidth()) {
+                ratio = (double) lblOriImage.getWidth() / (double) rot.getWidth();
+                rot = rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+        lblPicturePath.setText(rot.getFileName());
+    }//GEN-LAST:event_btnVerRefActionPerformed
+
+    private void btnHorRefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHorRefActionPerformed
+        Picture rot = new Picture(OrigPic);
+        rot.mirrorHorizontal();
+        double ratio = (double) lblOriImage.getHeight() / (double) rot.getHeight();
+        if (rot.getHeight() > lblOriImage.getHeight()) {
+            rot = rot.scale(ratio, ratio);
+            if (rot.getWidth() > lblOriImage.getWidth()) {
+                ratio = (double) lblOriImage.getWidth() / (double) rot.getWidth();
+                rot = rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+     }//GEN-LAST:event_btnHorRefActionPerformed
+
+    private void btnD1RefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnD1RefActionPerformed
+        Picture rot = new Picture(OrigPic);
+        rot.mirrorDiagTopLeftBotRight();
         double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
         if (rot.getHeight()>lblOriImage.getHeight()){
             rot=rot.scale(ratio,ratio);
@@ -538,13 +636,30 @@ public class ImageEditor extends javax.swing.JFrame {
         }
         Icon a = new ImageIcon(rot.getImage());
         lblOriImage.setIcon(a);
-        lblPicturePath.setText(rot.getFileName());        
-    }//GEN-LAST:event_btnRot180ActionPerformed
+        
+    }//GEN-LAST:event_btnD1RefActionPerformed
+
+    private void btnD2RefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnD2RefActionPerformed
+       Picture rot = new Picture(OrigPic);
+        rot.mirrorDiagTopRightBotLeft();
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+        
+    }//GEN-LAST:event_btnD2RefActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -567,14 +682,15 @@ public class ImageEditor extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ImageEditor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ImageEditor().setVisible(true);
                 System.out.println("see these changes");
                 System.out.println("  ");
-                
+               
+
             }
         });
     }
@@ -582,11 +698,15 @@ public class ImageEditor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApplyColors;
     private javax.swing.JButton btnClearColors;
+    private javax.swing.JButton btnD1Ref;
+    private javax.swing.JButton btnD2Ref;
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnHorRef;
     private javax.swing.JButton btnOpenPicture;
     private javax.swing.JButton btnRot180;
     private javax.swing.JButton btnRotLeft;
     private javax.swing.JButton btnRotRight;
+    private javax.swing.JButton btnVerRef;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JFrame frmOriginalPic;
     private javax.swing.JButton jButton1;
@@ -599,9 +719,6 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -611,7 +728,11 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuExit;
     private javax.swing.JMenuItem menuOpenFile;
     private javax.swing.JPanel pnlOriginalImage;
+    private javax.swing.JFrame refFrame;
     private javax.swing.JFrame rotFrame;
+    private javax.swing.JMenuItem sMnuReflect;
+    private javax.swing.JMenuItem sMnuRotate;
+    private javax.swing.JMenuItem sMnuScal;
     private javax.swing.JTextField txtBlueColor;
     private javax.swing.JTextField txtGreenColor;
     private javax.swing.JTextField txtRedColor;
