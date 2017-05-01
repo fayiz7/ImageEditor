@@ -81,17 +81,21 @@ public class ImageEditor extends javax.swing.JFrame {
         txtRedColor = new javax.swing.JTextField();
         btnClearColors = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        mnuFile = new javax.swing.JMenu();
         menuOpenFile = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mnuEdit = new javax.swing.JMenu();
         sMnuShoOriPic = new javax.swing.JMenuItem();
+        sMnuGrayScale = new javax.swing.JMenuItem();
+        sMnuBlend = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         sMnuRotate = new javax.swing.JMenuItem();
         sMnuReflect = new javax.swing.JMenuItem();
         sMnuScal = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\Users\\MofawsAdmin\\VirtualBox VMs"));
         fileChooser.setDialogTitle("Open Dialog");
@@ -405,7 +409,7 @@ public class ImageEditor extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
-        jMenu1.setText("File");
+        mnuFile.setText("File");
 
         menuOpenFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         menuOpenFile.setText("Open Image");
@@ -414,13 +418,13 @@ public class ImageEditor extends javax.swing.JFrame {
                 menuOpenFileActionPerformed(evt);
             }
         });
-        jMenu1.add(menuOpenFile);
+        mnuFile.add(menuOpenFile);
 
         jMenuItem2.setText("Save");
-        jMenu1.add(jMenuItem2);
+        mnuFile.add(jMenuItem2);
 
         jMenuItem3.setText("Save Ass...");
-        jMenu1.add(jMenuItem3);
+        mnuFile.add(jMenuItem3);
 
         menuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         menuExit.setText("Exit");
@@ -429,11 +433,11 @@ public class ImageEditor extends javax.swing.JFrame {
                 menuExitActionPerformed(evt);
             }
         });
-        jMenu1.add(menuExit);
+        mnuFile.add(menuExit);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mnuFile);
 
-        jMenu2.setText("Edit");
+        mnuEdit.setText("Edit");
 
         sMnuShoOriPic.setText("Show Original Picture");
         sMnuShoOriPic.addActionListener(new java.awt.event.ActionListener() {
@@ -441,8 +445,32 @@ public class ImageEditor extends javax.swing.JFrame {
                 sMnuShoOriPicActionPerformed(evt);
             }
         });
-        jMenu2.add(sMnuShoOriPic);
-        jMenu2.add(jSeparator2);
+        mnuEdit.add(sMnuShoOriPic);
+
+        sMnuGrayScale.setText("Convert to Gray Scale");
+        sMnuGrayScale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sMnuGrayScaleActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(sMnuGrayScale);
+
+        sMnuBlend.setText("Blend Two Pictures");
+        sMnuBlend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sMnuBlendActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(sMnuBlend);
+
+        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(jMenuItem1);
+        mnuEdit.add(jSeparator2);
 
         sMnuRotate.setText("Rotation ...");
         sMnuRotate.addActionListener(new java.awt.event.ActionListener() {
@@ -450,7 +478,7 @@ public class ImageEditor extends javax.swing.JFrame {
                 sMnuRotateActionPerformed(evt);
             }
         });
-        jMenu2.add(sMnuRotate);
+        mnuEdit.add(sMnuRotate);
 
         sMnuReflect.setText("Reflection ...");
         sMnuReflect.addActionListener(new java.awt.event.ActionListener() {
@@ -458,7 +486,7 @@ public class ImageEditor extends javax.swing.JFrame {
                 sMnuReflectActionPerformed(evt);
             }
         });
-        jMenu2.add(sMnuReflect);
+        mnuEdit.add(sMnuReflect);
 
         sMnuScal.setText("Scaling ...");
         sMnuScal.addActionListener(new java.awt.event.ActionListener() {
@@ -466,9 +494,17 @@ public class ImageEditor extends javax.swing.JFrame {
                 sMnuScalActionPerformed(evt);
             }
         });
-        jMenu2.add(sMnuScal);
+        mnuEdit.add(sMnuScal);
 
-        jMenuBar1.add(jMenu2);
+        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(jMenuItem4);
+
+        jMenuBar1.add(mnuEdit);
 
         setJMenuBar(jMenuBar1);
 
@@ -711,6 +747,65 @@ public class ImageEditor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_sMnuScalActionPerformed
 
+    private void sMnuGrayScaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sMnuGrayScaleActionPerformed
+        Picture rot = new Picture(OrigPic);
+        rot.grayscale();
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+        
+    }//GEN-LAST:event_sMnuGrayScaleActionPerformed
+
+    private void sMnuBlendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sMnuBlendActionPerformed
+        Picture rot = new Picture(OrigPic);
+        rot = rot.blendPictures(new Picture(FileChooser.pickAFile()), .5);
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+    }//GEN-LAST:event_sMnuBlendActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Picture rot = new Picture(OrigPic);
+        rot.BoxFilter();
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        Picture rot = new Picture(OrigPic);
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -770,11 +865,11 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -786,9 +881,13 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JLabel lblPicturePath;
     private javax.swing.JMenuItem menuExit;
     private javax.swing.JMenuItem menuOpenFile;
+    private javax.swing.JMenu mnuEdit;
+    private javax.swing.JMenu mnuFile;
     private javax.swing.JPanel pnlOriginalImage;
     private javax.swing.JFrame refFrame;
     private javax.swing.JFrame rotFrame;
+    private javax.swing.JMenuItem sMnuBlend;
+    private javax.swing.JMenuItem sMnuGrayScale;
     private javax.swing.JMenuItem sMnuReflect;
     private javax.swing.JMenuItem sMnuRotate;
     private javax.swing.JMenuItem sMnuScal;

@@ -5041,6 +5041,27 @@ public class Picture extends SimplePicture
     p.decreaseRed();
     p.show();
   }
+      public  void BoxFilter(){
+        int h = this.getHeight();
+        int w = this.getWidth();
+        Picture copy = this;
+          for (int v = 10; v <= h-11; v++) {
+              for (int u = 10; u <= w-11; u++) {
+                  int sum = 0;
+                          for (int i = -10; i <=10 ; i++) {
+                              for (int j = -10; j < 10; j++) {
+                                  int p=copy.getPixel(u+i, v+j).getAlpha();
+                                  sum+=p;
+                              }
+                              int q = (int) Math.round(sum/441.0);
+                              this.getPixel(u, v ).setAlpha(q);
+                      
+                  }
+                  
+              }
+              
+          }
+    }
 
     //int getWidth() {
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
