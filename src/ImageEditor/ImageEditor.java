@@ -61,8 +61,8 @@ public class ImageEditor extends javax.swing.JFrame {
         btnD1Ref = new javax.swing.JButton();
         btnD2Ref = new javax.swing.JButton();
         scalFrame = new javax.swing.JFrame();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        btnSclUp = new javax.swing.JButton();
+        btnSclDowm = new javax.swing.JButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
@@ -225,29 +225,34 @@ public class ImageEditor extends javax.swing.JFrame {
 
         scalFrame.setMinimumSize(new java.awt.Dimension(300, 150));
 
-        jRadioButton1.setText("jRadioButton1");
+        btnSclUp.setText("Scale Up");
+        btnSclUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSclUpActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setText("jRadioButton2");
+        btnSclDowm.setText("Scale Down");
 
         javax.swing.GroupLayout scalFrameLayout = new javax.swing.GroupLayout(scalFrame.getContentPane());
         scalFrame.getContentPane().setLayout(scalFrameLayout);
         scalFrameLayout.setHorizontalGroup(
             scalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(scalFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(scalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(301, 301, 301))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, scalFrameLayout.createSequentialGroup()
+                .addContainerGap(103, Short.MAX_VALUE)
+                .addComponent(btnSclUp)
+                .addGap(47, 47, 47)
+                .addComponent(btnSclDowm)
+                .addGap(90, 90, 90))
         );
         scalFrameLayout.setVerticalGroup(
             scalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(scalFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(247, 247, 247))
+                .addContainerGap(128, Short.MAX_VALUE)
+                .addGroup(scalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSclUp)
+                    .addComponent(btnSclDowm))
+                .addGap(153, 153, 153))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -837,6 +842,11 @@ public class ImageEditor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_sMnuBxFltrActionPerformed
 
+    private void btnSclUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSclUpActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnSclUpActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -887,6 +897,8 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JButton btnRot180;
     private javax.swing.JButton btnRotLeft;
     private javax.swing.JButton btnRotRight;
+    private javax.swing.JButton btnSclDowm;
+    private javax.swing.JButton btnSclUp;
     private javax.swing.JButton btnVerRef;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFileChooser fileChooser;
@@ -904,8 +916,6 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblOriImage;
