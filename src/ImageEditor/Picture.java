@@ -5045,23 +5045,53 @@ public class Picture extends SimplePicture
         int h = this.getHeight();
         int w = this.getWidth();
         Picture copy = this;
-          for (int v = 10; v <= h-11; v++) {
-              for (int u = 10; u <= w-11; u++) {
+          for (int v = 1; v <= h-2; v++) {
+              for (int u = 1; u <= w-2; u++) {
                   int sum = 0;
-                          for (int i = -10; i <=10 ; i++) {
-                              for (int j = -10; j < 10; j++) {
-                                  int p=copy.getPixel(u+i, v+j).getAlpha();
+                          for (int i = -1; i <=1 ; i++) {
+                              for (int j = -1; j <= 1; j++) {
+                                  int p=copy.getPixel(u+i, v+j).getRed();
                                   sum+=p;
                               }
-                              int q = (int) Math.round(sum/441.0);
-                              this.getPixel(u, v ).setAlpha(q);
+                              int q = (int) Math.round(sum/9.0);
+                              this.getPixel(u, v ).setRed(q);
+                      
+                  }
+              }
+          }
+          for (int v = 1; v <= h-2; v++) {
+              for (int u = 1; u <= w-2; u++) {
+                  int sum = 0;
+                          for (int i = -1; i <=1 ; i++) {
+                              for (int j = -1; j <= 1; j++) {
+                                  int p=copy.getPixel(u+i, v+j).getBlue();
+                                  sum+=p;
+                              }
+                              int q = (int) Math.round(sum/9.0);
+                              this.getPixel(u, v ).setBlue(q);
                       
                   }
                   
               }
               
           }
-    }
+          for (int v = 1; v <= h-2; v++) {
+              for (int u = 1; u <= w-2; u++) {
+                  int sum = 0;
+                          for (int i = -1; i <=1 ; i++) {
+                              for (int j = -1; j <= 1; j++) {
+                                  int p=copy.getPixel(u+i, v+j).getGreen();
+                                  sum+=p;
+                              }
+                              int q = (int) Math.round(sum/9.0);
+                              this.getPixel(u, v ).setGreen(q);
+                      
+                  }
+                  
+              }
+              
+          }
+      }
 
     //int getWidth() {
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

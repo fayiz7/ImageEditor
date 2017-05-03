@@ -23,7 +23,7 @@ public class ImageEditor extends javax.swing.JFrame {
 
     private final JFileChooser openFileChooser;
     private BufferedImage OriginalBI;
-    Picture OrigPic = new Picture("D:\\Users\\MofawsAdmin\\Pictures\\111.jpg");
+    Picture OrigPic = new Picture("D:\\Users\\Public\\Pictures\\Sample Pictures\\Tulips.jpg");
 
     /**
      * Creates new form ImageEditor
@@ -96,6 +96,8 @@ public class ImageEditor extends javax.swing.JFrame {
         sMnuReflect = new javax.swing.JMenuItem();
         sMnuScal = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        mnuFilters = new javax.swing.JMenu();
+        sMnuBxFltr = new javax.swing.JMenuItem();
 
         fileChooser.setCurrentDirectory(new java.io.File("D:\\Users\\MofawsAdmin\\VirtualBox VMs"));
         fileChooser.setDialogTitle("Open Dialog");
@@ -506,6 +508,18 @@ public class ImageEditor extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuEdit);
 
+        mnuFilters.setText("Filters");
+
+        sMnuBxFltr.setText("Box Filter");
+        sMnuBxFltr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sMnuBxFltrActionPerformed(evt);
+            }
+        });
+        mnuFilters.add(sMnuBxFltr);
+
+        jMenuBar1.add(mnuFilters);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -779,7 +793,7 @@ public class ImageEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_sMnuBlendActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        Picture rot = new Picture(OrigPic);
+        Picture rot = new Picture(FileChooser.pickAFile());
         rot.BoxFilter();
         double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
         if (rot.getHeight()>lblOriImage.getHeight()){
@@ -805,6 +819,23 @@ public class ImageEditor extends javax.swing.JFrame {
         }
         Icon a = new ImageIcon(rot.getImage());
         lblOriImage.setIcon(a);    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void sMnuBxFltrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sMnuBxFltrActionPerformed
+        // TODO add your handling code here:
+                Picture rot = new Picture(FileChooser.pickAFile());
+        rot.BoxFilter();
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+
+    }//GEN-LAST:event_sMnuBxFltrActionPerformed
 
     /**
      * @param args the command line arguments
@@ -883,10 +914,12 @@ public class ImageEditor extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuOpenFile;
     private javax.swing.JMenu mnuEdit;
     private javax.swing.JMenu mnuFile;
+    private javax.swing.JMenu mnuFilters;
     private javax.swing.JPanel pnlOriginalImage;
     private javax.swing.JFrame refFrame;
     private javax.swing.JFrame rotFrame;
     private javax.swing.JMenuItem sMnuBlend;
+    private javax.swing.JMenuItem sMnuBxFltr;
     private javax.swing.JMenuItem sMnuGrayScale;
     private javax.swing.JMenuItem sMnuReflect;
     private javax.swing.JMenuItem sMnuRotate;
