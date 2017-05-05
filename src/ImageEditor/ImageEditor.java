@@ -23,7 +23,7 @@ public class ImageEditor extends javax.swing.JFrame {
 
     private final JFileChooser openFileChooser;
     private BufferedImage OriginalBI;
-    Picture OrigPic = new Picture("D:\\Users\\Public\\Pictures\\Sample Pictures\\Tulips.jpg");
+    Picture OrigPic = new Picture("C:\\Users\\Public\\Pictures\\Sample Pictures\\Koala.jpg");
 
     /**
      * Creates new form ImageEditor

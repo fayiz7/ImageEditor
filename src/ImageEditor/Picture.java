@@ -5047,50 +5047,60 @@ public class Picture extends SimplePicture
         Picture copy = this;
           for (int v = 1; v <= h-2; v++) {
               for (int u = 1; u <= w-2; u++) {
-                  int sum = 0;
+                  int sumRed = 0;
+                  int sumGreen = 0;
+                  int sumBlue = 0;
                           for (int i = -1; i <=1 ; i++) {
                               for (int j = -1; j <= 1; j++) {
-                                  int p=copy.getPixel(u+i, v+j).getRed();
-                                  sum+=p;
+                                  int red=copy.getPixel(u+i, v+j).getRed();
+                                  int green=copy.getPixel(u+i, v+j).getGreen();
+                                  int blue=copy.getPixel(u+i, v+j).getBlue();
+                                  sumRed+=red;
+                                  sumGreen+=green;
+                                  sumBlue+=blue;
                               }
-                              int q = (int) Math.round(sum/9.0);
-                              this.getPixel(u, v ).setRed(q);
+                              int red = (int) Math.round(sumRed/9.0);
+                              int green = (int) Math.round(sumGreen/9.0);
+                              int blue = (int) Math.round(sumBlue/9.0);
+                              this.getPixel(u, v ).setRed(red);
+                              this.getPixel(u, v ).setGreen(green);
+                              this.getPixel(u, v ).setBlue(blue);
                       
                   }
               }
           }
-          for (int v = 1; v <= h-2; v++) {
-              for (int u = 1; u <= w-2; u++) {
-                  int sum = 0;
-                          for (int i = -1; i <=1 ; i++) {
-                              for (int j = -1; j <= 1; j++) {
-                                  int p=copy.getPixel(u+i, v+j).getBlue();
-                                  sum+=p;
-                              }
-                              int q = (int) Math.round(sum/9.0);
-                              this.getPixel(u, v ).setBlue(q);
-                      
-                  }
-                  
-              }
+//          for (int v = 1; v <= h-2; v++) {
+//              for (int u = 1; u <= w-2; u++) {
+//                  int sum = 0;
+//                          for (int i = -1; i <=1 ; i++) {
+//                              for (int j = -1; j <= 1; j++) {
+//                                  int p=copy.getPixel(u+i, v+j).getBlue();
+//                                  sum+=p;
+//                              }
+//                              int q = (int) Math.round(sum/9.0);
+//                              this.getPixel(u, v ).setBlue(q);
+//                      
+//                  }
+//                  
+//              }
+//              
+//          }
+//          for (int v = 1; v <= h-2; v++) {
+//              for (int u = 1; u <= w-2; u++) {
+//                  int sum = 0;
+//                          for (int i = -1; i <=1 ; i++) {
+//                              for (int j = -1; j <= 1; j++) {
+//                                  int p=copy.getPixel(u+i, v+j).getGreen();
+//                                  sum+=p;
+//                              }
+//                              int q = (int) Math.round(sum/9.0);
+//                              this.getPixel(u, v ).setGreen(q);
+//                      
+//                  }
+//                  
+//              }
               
-          }
-          for (int v = 1; v <= h-2; v++) {
-              for (int u = 1; u <= w-2; u++) {
-                  int sum = 0;
-                          for (int i = -1; i <=1 ; i++) {
-                              for (int j = -1; j <= 1; j++) {
-                                  int p=copy.getPixel(u+i, v+j).getGreen();
-                                  sum+=p;
-                              }
-                              int q = (int) Math.round(sum/9.0);
-                              this.getPixel(u, v ).setGreen(q);
-                      
-                  }
-                  
-              }
-              
-          }
+//          }
       }
 
     //int getWidth() {
