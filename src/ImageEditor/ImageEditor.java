@@ -233,6 +233,11 @@ public class ImageEditor extends javax.swing.JFrame {
         });
 
         btnSclDowm.setText("Scale Down");
+        btnSclDowm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSclDowmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout scalFrameLayout = new javax.swing.GroupLayout(scalFrame.getContentPane());
         scalFrame.getContentPane().setLayout(scalFrameLayout);
@@ -844,8 +849,39 @@ public class ImageEditor extends javax.swing.JFrame {
 
     private void btnSclUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSclUpActionPerformed
         // TODO add your handling code here:
+        Picture ooo = new Picture(FileChooser.pickAFile());
+        Picture rot = ooo.scaleUp(2);
+        //rot =rot.scaleUp(2);
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+
         
     }//GEN-LAST:event_btnSclUpActionPerformed
+
+    private void btnSclDowmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSclDowmActionPerformed
+        // TODO add your handling code here:
+        Picture ooo = new Picture(FileChooser.pickAFile());
+        Picture rot = ooo.scaleDown(2);
+        //rot =rot.scaleUp(2);
+        double ratio=(double)lblOriImage.getHeight()/(double)rot.getHeight();
+        if (rot.getHeight()>lblOriImage.getHeight()){
+            rot=rot.scale(ratio,ratio);
+            if(rot.getWidth()>lblOriImage.getWidth()){
+                ratio=(double)lblOriImage.getWidth()/(double)rot.getWidth();
+                rot=rot.scale(ratio, ratio);
+            }
+        }
+        Icon a = new ImageIcon(rot.getImage());
+        lblOriImage.setIcon(a);
+    }//GEN-LAST:event_btnSclDowmActionPerformed
 
     /**
      * @param args the command line arguments
